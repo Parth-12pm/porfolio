@@ -17,8 +17,19 @@ export default function Home() {
       <div className=" flex flex-col ">
         <HeroSection />
         <LogoCloud />
-        <div className="flex  justify-center">
-          <MagicBento />
+        <div className="flex  justify-center items-center pr-48 mt-20 mb-20">
+          <MagicBento
+            textAutoHide={true}
+            enableStars={true}
+            enableSpotlight={true}
+            enableBorderGlow={true}
+            enableTilt={true}
+            enableMagnetism={false}
+            clickEffect={true}
+            spotlightRadius={300}
+            particleCount={12}
+            glowColor="171, 171, 171"
+          />
         </div>
         <IntegrationsSection />
         <FooterSection />
