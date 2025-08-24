@@ -7,8 +7,10 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "motion/react";
-
+import Image from "next/image";
+import Link from "next/link";
 import React, { useRef, useState } from "react";
+import { Button } from "./button";
 
 interface NavbarProps {
   children: React.ReactNode;
@@ -194,7 +196,6 @@ export const MobileNavMenu = ({
   children,
   className,
   isOpen,
-  onClose,
 }: MobileNavMenuProps) => {
   return (
     <AnimatePresence>
@@ -235,7 +236,7 @@ export const NavbarLogo = () => {
       href="#"
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
     >
-      <img
+      <Image
         src="/me.jpg"
         alt="logo"
         width={30}
@@ -248,22 +249,19 @@ export const NavbarLogo = () => {
 };
 
 export const NavbarButton = ({
-  href,
-  as: Tag = "a",
   children,
   className,
   variant = "primary",
+  href,
+  onClick,
   ...props
 }: {
-  href?: string;
-  as?: React.ElementType;
   children: React.ReactNode;
   className?: string;
   variant?: "primary" | "secondary" | "dark" | "gradient";
-} & (
-  | React.ComponentPropsWithoutRef<"a">
-  | React.ComponentPropsWithoutRef<"button">
-)) => {
+  href?: string;
+  onClick?: () => void;
+}) => {
   const baseStyles =
     "px-4 py-2 rounded-md bg-white button bg-white text-black text-sm font-bold relative cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center";
 
@@ -276,13 +274,19 @@ export const NavbarButton = ({
       "bg-gradient-to-b from-blue-500 to-blue-700 text-white shadow-[0px_2px_0px_0px_rgba(255,255,255,0.3)_inset]",
   };
 
+  const styles = cn(baseStyles, variantStyles[variant], className);
+
+  if (href) {
+    return (
+      <Link href={href} className={styles} {...props}>
+        {children}
+      </Link>
+    );
+  }
+
   return (
-    <Tag
-      href={href || undefined}
-      className={cn(baseStyles, variantStyles[variant], className)}
-      {...props}
-    >
+    <Button onClick={onClick} className={styles} {...props}>
       {children}
-    </Tag>
+    </Button>
   );
 };

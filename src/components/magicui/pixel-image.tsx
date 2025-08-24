@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 
 type Grid = {
   rows: number;
@@ -52,8 +53,6 @@ export const PixelImage = ({
 }: PixelImageProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [showColor, setShowColor] = useState(false);
-  const isClient = typeof window !== "undefined";
-  const delay = isClient ? Math.random() * maxAnimationDelay : 0;
 
   const MIN_GRID = 1;
   const MAX_GRID = 16;
@@ -111,7 +110,7 @@ export const PixelImage = ({
             transitionDuration: `${pixelFadeInDuration}ms`,
           }}
         >
-          <img
+          <Image
             src={src}
             alt={`Pixel image piece ${index + 1}`}
             className={cn(

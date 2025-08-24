@@ -1,5 +1,4 @@
 import FooterSection from "@/components/footer";
-import IntegrationsSection from "@/components/integrations-1";
 import LogoCloud from "../components/logo-cloud";
 import MagicBento from "@/components/MagicBento/MagicBento";
 import { Spotlight } from "@/components/ui/spotlight-new";

@@ -1,5 +1,8 @@
 "use client";
-import { ArrowRight, Mail, Menu, SendHorizonal, X } from "lucide-react";
+
+import { TextEffect } from "@/components/ui/text-effect";
+import { AnimatedGroup } from "@/components/ui/animated-group";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import {
@@ -8,14 +11,11 @@ import {
   NavItems,
   MobileNav,
   NavbarLogo,
-  NavbarButton,
   MobileNavHeader,
   MobileNavToggle,
   MobileNavMenu,
+  NavbarButton,
 } from "@/components/ui/resizable-navbar";
-import React from "react";
-import { TextEffect } from "@/components/ui/text-effect";
-import { AnimatedGroup } from "@/components/ui/animated-group";
 
 export default function HeroSection() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -60,6 +60,8 @@ export default function HeroSection() {
         <NavBody>
           <NavbarLogo />
           <NavItems items={navItems} />
+          <NavbarButton variant="secondary">Login</NavbarButton>
+          <NavbarButton variant="secondary">Login</NavbarButton>
         </NavBody>
 
         {/* Mobile Navigation */}
@@ -110,7 +112,7 @@ export default function HeroSection() {
                     className="hover:bg-background dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-zinc-950/5 transition-colors duration-300 dark:border-t-white/5 dark:shadow-zinc-950"
                   >
                     <span className="text-foreground text-sm">
-                      Introducing Support 
+                      Introducing Support
                     </span>
                     <span className="dark:border-background block h-4 w-0.5 border-l bg-white dark:bg-zinc-700"></span>
 
