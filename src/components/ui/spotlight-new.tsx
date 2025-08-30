@@ -21,8 +21,8 @@ export const Spotlight = ({
   width = 560,
   height = 1380,
   smallWidth = 240,
-  duration = 7,
-  xOffset = 100,
+  duration = 4,
+  xOffset = 150,
 }: SpotlightProps = {}) => {
   return (
     <motion.div
@@ -35,7 +35,8 @@ export const Spotlight = ({
       transition={{
         duration: 1.5,
       }}
-      className="pointer-events-none absolute inset-0 h-full w-full"
+      className="pointer-events-none absolute inset-0 overflow-hidden"
+      style={{ width: '100%', height: '100%' }}
     >
       <motion.div
         animate={{
@@ -47,36 +48,36 @@ export const Spotlight = ({
           repeatType: "reverse",
           ease: "easeInOut",
         }}
-        className="absolute top-0 left-0 w-screen h-screen z-40 pointer-events-none"
+        className="absolute top-0 left-0 w-full h-full z-40 pointer-events-none"
       >
         <div
           style={{
             transform: `translateY(${translateY}px) rotate(-45deg)`,
             background: gradientFirst,
-            width: `${width}px`,
+            width: `min(${width}px, 80vw)`,
             height: `${height}px`,
           }}
-          className={`absolute top-0 left-0`}
+          className="absolute top-0 left-0"
         />
 
         <div
           style={{
             transform: "rotate(-45deg) translate(5%, -50%)",
             background: gradientSecond,
-            width: `${smallWidth}px`,
+            width: `min(${smallWidth}px, 40vw)`,
             height: `${height}px`,
           }}
-          className={`absolute top-0 left-0 origin-top-left`}
+          className="absolute top-0 left-0 origin-top-left"
         />
 
         <div
           style={{
             transform: "rotate(-45deg) translate(-180%, -70%)",
             background: gradientThird,
-            width: `${smallWidth}px`,
+            width: `min(${smallWidth}px, 40vw)`,
             height: `${height}px`,
           }}
-          className={`absolute top-0 left-0 origin-top-left`}
+          className="absolute top-0 left-0 origin-top-left"
         />
       </motion.div>
 
@@ -90,36 +91,36 @@ export const Spotlight = ({
           repeatType: "reverse",
           ease: "easeInOut",
         }}
-        className="absolute top-0 right-0 w-screen h-screen z-40 pointer-events-none"
+        className="absolute top-0 right-0 w-full h-full z-40 pointer-events-none"
       >
         <div
           style={{
             transform: `translateY(${translateY}px) rotate(45deg)`,
             background: gradientFirst,
-            width: `${width}px`,
+            width: `min(${width}px, 80vw)`,
             height: `${height}px`,
           }}
-          className={`absolute top-0 right-0`}
+          className="absolute top-0 right-0"
         />
 
         <div
           style={{
             transform: "rotate(45deg) translate(-5%, -50%)",
             background: gradientSecond,
-            width: `${smallWidth}px`,
+            width: `min(${smallWidth}px, 40vw)`,
             height: `${height}px`,
           }}
-          className={`absolute top-0 right-0 origin-top-right`}
+          className="absolute top-0 right-0 origin-top-right"
         />
 
         <div
           style={{
             transform: "rotate(45deg) translate(180%, -70%)",
             background: gradientThird,
-            width: `${smallWidth}px`,
+            width: `min(${smallWidth}px, 40vw)`,
             height: `${height}px`,
           }}
-          className={`absolute top-0 right-0 origin-top-right`}
+          className="absolute top-0 right-0 origin-top-right"
         />
       </motion.div>
     </motion.div>

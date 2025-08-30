@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function LogoCloud() {
   return (
     <section className="bg-background overflow-hidden py-16">
-      <div className="group relative m-auto max-w-7xl px-6">
+      <div className="group relative m-auto max-w-6xl px-6">
         <div className="flex flex-col items-center md:flex-row">
           <div className="md:max-w-65 md:border-r md:pr-6">
             <p className="text-end text-lg">Powering the applications with</p>
@@ -18,7 +18,8 @@ export default function LogoCloud() {
                   className="mx-auto h-22 w-fit "
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
                   alt="Java Logo"
-                  height="50"
+                  height={30}
+                  width={30}
                 />
               </div>
 
@@ -28,7 +29,8 @@ export default function LogoCloud() {
                   className="mx-auto h-22 w-fit "
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
                   alt="JavaScript Logo"
-                  height="50"
+                  height={30}
+                  width={30}
                 />
               </div>
 
@@ -38,7 +40,8 @@ export default function LogoCloud() {
                   className="mx-auto h-22 w-fit dark:invert"
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"
                   alt="Next.js Logo"
-                  height="50"
+                  height={30}
+                  width={30}
                 />
               </div>
 
@@ -48,7 +51,8 @@ export default function LogoCloud() {
                   className="mx-auto h-22 w-fit "
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
                   alt="HTML5 Logo"
-                  height="50"
+                  height={30}
+                  width={30}
                 />
               </div>
 
@@ -58,7 +62,8 @@ export default function LogoCloud() {
                   className="mx-auto h-22 w-fit "
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
                   alt="CSS3 Logo"
-                  height="50"
+                  height={30}
+                  width={30}
                 />
               </div>
 
@@ -68,7 +73,8 @@ export default function LogoCloud() {
                   className="mx-auto h-22 w-fit "
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
                   alt="React Logo"
-                  height="50"
+                  height={30}
+                  width={30}
                 />
               </div>
 
@@ -78,7 +84,8 @@ export default function LogoCloud() {
                   className="mx-auto h-18 w-fit "
                   src="https://static.cdnlogo.com/logos/t/58/tailwindcss.svg"
                   alt="Tailwind CSS Logo"
-                  height="50"
+                  height={30}
+                  width={30}
                 />
               </div>
 
@@ -88,7 +95,8 @@ export default function LogoCloud() {
                   className="mx-auto h-22 w-fit "
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
                   alt="Node.js Logo"
-                  height="50"
+                  height={30}
+                  width={30}
                 />
               </div>
 
@@ -98,7 +106,8 @@ export default function LogoCloud() {
                   className="mx-auto h-22 w-fit "
                   src="https://static.cdnlogo.com/logos/m/26/mongodb-icon_800.png"
                   alt="MongoDB Logo"
-                  height="50"
+                  height={30}
+                  width={30}
                 />
               </div>
 
@@ -108,7 +117,8 @@ export default function LogoCloud() {
                   className="mx-auto h-22 w-fit dark:invert"
                   src="/_next/static/svgs/6da928883916f39a4848774319dcaf81.svg"
                   alt="Neon Logo"
-                  height="50"
+                  height={50}
+                  width={50}
                   width="auto"
                 />
               </div> */}

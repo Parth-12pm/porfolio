@@ -4,21 +4,8 @@ import { TextEffect } from "@/components/ui/text-effect";
 import { AnimatedGroup } from "@/components/ui/animated-group";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
-import {
-  Navbar,
-  NavBody,
-  NavItems,
-  MobileNav,
-  NavbarLogo,
-  MobileNavHeader,
-  MobileNavToggle,
-  MobileNavMenu,
-  NavbarButton,
-} from "@/components/ui/resizable-navbar";
 
 export default function HeroSection() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const transitionVariants = {
     container: {},
     item: {
@@ -39,59 +26,9 @@ export default function HeroSection() {
       },
     },
   };
-  const navItems = [
-    {
-      name: "Features",
-      link: "#features",
-    },
-    {
-      name: "Pricing",
-      link: "#pricing",
-    },
-    {
-      name: "Contact",
-      link: "#contact",
-    },
-  ];
+
   return (
     <>
-      <Navbar>
-        {/* Desktop Navigation */}
-        <NavBody>
-          <NavbarLogo />
-          <NavItems items={navItems} />
-          <NavbarButton variant="secondary">Login</NavbarButton>
-          <NavbarButton variant="secondary">Login</NavbarButton>
-        </NavBody>
-
-        {/* Mobile Navigation */}
-        <MobileNav>
-          <MobileNavHeader>
-            <NavbarLogo />
-            <MobileNavToggle
-              isOpen={isMobileMenuOpen}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            />
-          </MobileNavHeader>
-
-          <MobileNavMenu
-            isOpen={isMobileMenuOpen}
-            onClose={() => setIsMobileMenuOpen(false)}
-          >
-            {navItems.map((item, idx) => (
-              <a
-                key={`mobile-link-${idx}`}
-                href={item.link}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="relative text-neutral-600 dark:text-neutral-300"
-              >
-                <span className="block">{item.name}</span>
-              </a>
-            ))}
-          </MobileNavMenu>
-        </MobileNav>
-      </Navbar>
-
       <main className="overflow-hidden">
         <div
           aria-hidden
@@ -107,6 +44,14 @@ export default function HeroSection() {
             <div className="mx-auto max-w-7xl px-6">
               <div className="text-center sm:mx-auto lg:mr-auto lg:mt-0">
                 <AnimatedGroup variants={transitionVariants}>
+                  {/* <PixelImage
+                    src="/Me_bg.png"
+                    grid="8x8"
+                    className="w-80 h-80"
+                    maxAnimationDelay={1000}
+                    grayscaleAnimation={true}
+                    colorRevealDelay={1200}
+                  /> */}
                   <Link
                     href="#link"
                     className="hover:bg-background dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-zinc-950/5 transition-colors duration-300 dark:border-t-white/5 dark:shadow-zinc-950"

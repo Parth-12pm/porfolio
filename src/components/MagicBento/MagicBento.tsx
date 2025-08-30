@@ -510,8 +510,8 @@ const GlobalSpotlight: React.FC<{
         minDistance <= proximity
           ? 0.8
           : minDistance <= fadeDistance
-          ? ((fadeDistance - minDistance) / (fadeDistance - proximity)) * 0.8
-          : 0;
+            ? ((fadeDistance - minDistance) / (fadeDistance - proximity)) * 0.8
+            : 0;
 
       gsap.to(spotlightRef.current, {
         opacity: targetOpacity,
@@ -734,7 +734,7 @@ const MagicBento: React.FC<BentoProps> = ({
       )}
 
       <BentoCardGrid gridRef={gridRef}>
-        <div className="card-responsive grid gap-2">
+        <div className="card-responsive grid  gap-2">
           {cardData.map((card, index) => {
             const baseClassName = `card flex flex-col justify-between relative overflow-hidden aspect-[${
               card.size?.aspectRatio || "4/3"
