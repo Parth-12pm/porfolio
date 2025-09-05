@@ -39,9 +39,9 @@ export default function HeroSection() {
           <div className="h-320 -translate-y-87.5 absolute left-0 top-0 w-60 -rotate-45 bg-[radial-gradient(50%_50%_at_50%_50%,hsla(0,0%,85%,.04)_0,hsla(0,0%,45%,.02)_80%,transparent_100%)]" />
         </div>
         <section>
-          <div className="relative pt-24 md:pt-36">
+          <div className="relative pt-16 md:pt-24 lg:pt-36">
             <div className="absolute inset-0 -z-10 size-full [background:radial-gradient(125%_125%_at_50%_100%,transparent_0%,var(--color-background)_75%)]"></div>
-            <div className="mx-auto max-w-7xl px-6">
+            <div className="mx-auto max-w-7xl px-4 md:px-6">
               <div className="text-center sm:mx-auto lg:mr-auto lg:mt-0">
                 <AnimatedGroup variants={transitionVariants}>
                   {/* <PixelImage
@@ -78,7 +78,7 @@ export default function HeroSection() {
                   preset="fade-in-blur"
                   speedSegment={0.3}
                   as="h1"
-                  className="mt-8 text-balance text-6xl md:text-7xl lg:mt-16 xl:text-[5.25rem]"
+                  className="mt-6 md:mt-8 lg:mt-16 text-balance text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.25rem]"
                 >
                   Modern Solutions for Customer Engagement
                 </TextEffect>

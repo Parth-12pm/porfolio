@@ -37,6 +37,7 @@ const DEFAULT_PARTICLE_COUNT = 12;
 const DEFAULT_SPOTLIGHT_RADIUS = 300;
 const DEFAULT_GLOW_COLOR = "171, 171, 171";
 const MOBILE_BREAKPOINT = 768;
+const TABLET_BREAKPOINT = 1024;
 
 const cardData: BentoCardProps[] = [
   // Row 1: small, small, big
@@ -151,7 +152,7 @@ const ParticleCard: React.FC<{
   enableTilt = true,
   clickEffect = false,
   enableMagnetism = false,
-  onClick, // <-- add this
+  onClick,
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const particlesRef = useRef<HTMLDivElement[]>([]);
@@ -389,7 +390,7 @@ const ParticleCard: React.FC<{
       ref={cardRef}
       className={`${className} relative overflow-hidden`}
       style={{ ...style, position: "relative", overflow: "hidden" }}
-      onClick={onClick} // <-- add this
+      onClick={onClick}
     >
       {children}
     </div>
@@ -552,28 +553,38 @@ const BentoCardGrid: React.FC<{
   gridRef?: React.RefObject<HTMLDivElement | null>;
 }> = ({ children, gridRef }) => (
   <div
-    className="bento-section grid gap-2 p-3 max-w-[54rem] select-none relative"
-    style={{ fontSize: "clamp(1rem, 0.9rem + 0.5vw, 1.5rem)" }}
+    className="bento-section relative select-none w-full max-w-none px-4 py-6 md:px-6 md:py-8 lg:max-w-[64rem] lg:mx-auto"
+    style={{ fontSize: "clamp(0.875rem, 0.8rem + 0.5vw, 1.125rem)" }}
     ref={gridRef}
   >
     {children}
   </div>
 );
 
-const useMobileDetection = () => {
-  const [isMobile, setIsMobile] = useState(false);
+const useDeviceDetection = () => {
+  const [deviceType, setDeviceType] = useState<"mobile" | "tablet" | "desktop">(
+    "desktop"
+  );
 
   useEffect(() => {
-    const checkMobile = () =>
-      setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
+    const checkDevice = () => {
+      const width = window.innerWidth;
+      if (width <= MOBILE_BREAKPOINT) {
+        setDeviceType("mobile");
+      } else if (width <= TABLET_BREAKPOINT) {
+        setDeviceType("tablet");
+      } else {
+        setDeviceType("desktop");
+      }
+    };
 
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
+    checkDevice();
+    window.addEventListener("resize", checkDevice);
 
-    return () => window.removeEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkDevice);
   }, []);
 
-  return isMobile;
+  return deviceType;
 };
 
 const MagicBento: React.FC<BentoProps> = ({
@@ -590,8 +601,8 @@ const MagicBento: React.FC<BentoProps> = ({
   enableMagnetism = true,
 }) => {
   const gridRef = useRef<HTMLDivElement>(null);
-  const isMobile = useMobileDetection();
-  const shouldDisableAnimations = disableAnimations || isMobile;
+  const deviceType = useDeviceDetection();
+  const shouldDisableAnimations = disableAnimations || deviceType === "mobile";
 
   return (
     <>
@@ -604,45 +615,167 @@ const MagicBento: React.FC<BentoProps> = ({
             --glow-radius: 200px;
             --glow-color: ${glowColor};
             --border-color: #333232;
-            --background-dark: #000000
-            ;
+            --background-dark: #000000;
             --white: hsl(0, 0%, 100%);
             --purple-primary: rgba(171, 191, 171, 1);
             --purple-glow: rgba(171, 191, 171, 0.2);
             --purple-border: rgba(181, 171, 181, 0.8);
           }
           
-          .card-responsive {
+          /* Base mobile-first grid styles */
+          .bento-grid {
+            display: grid;
+            gap: 0.75rem;
+            width: 100%;
             grid-template-columns: 1fr;
-            width: 90%;
-            margin: 0 auto;
-            padding: 0.5rem;
           }
           
-          @media (min-width: 600px) {
-            .card-responsive {
+          /* Mobile styles (default) */
+          @media (max-width: 767px) {
+            .bento-grid {
+              gap: 0.5rem;
+              padding: 0;
+            }
+            
+            .bento-grid .card {
+              width: 100% !important;
+              min-height: 160px !important;
+              aspect-ratio: 1.2/1 !important;
+            }
+            
+            .card__title {
+              font-size: 1rem !important;
+              line-height: 1.3 !important;
+            }
+            
+            .card__description {
+              font-size: 0.85rem !important;
+              line-height: 1.4 !important;
+            }
+            
+            .card__label {
+              font-size: 0.75rem !important;
+            }
+          }
+          
+          /* Tablet styles */
+          @media (min-width: 768px) and (max-width: 1023px) {
+            .bento-grid {
               grid-template-columns: repeat(2, 1fr);
+              gap: 1rem;
+            }
+            
+            .bento-grid .card {
+              min-height: 180px;
+              aspect-ratio: 1.3/1;
+            }
+            
+            /* Make the 3rd card (StallSpot) span full width on tablet */
+            .bento-grid .card:nth-child(3) {
+              grid-column: 1 / -1;
+              aspect-ratio: 2.5/1;
+            }
+            
+            /* Make the 4th card (Travel Mate) span full width on tablet */
+            .bento-grid .card:nth-child(4) {
+              grid-column: 1 / -1;
+              aspect-ratio: 2.2/1;
             }
           }
           
+          /* Desktop styles */
           @media (min-width: 1024px) {
-            .card-responsive {
+            .bento-grid {
               grid-template-columns: repeat(4, 1fr);
+              gap: 1rem;
             }
             
-            .card-responsive .card:nth-child(3) {
-              grid-column: span 2;
-              grid-row: span 2;
+            .bento-grid .card {
+              min-height: 200px;
             }
             
-            .card-responsive .card:nth-child(4) {
-              grid-column: 1 / span 2;
-              grid-row: 2 / span 2;
+            /* First row: small, small, big (2x2) */
+            .bento-grid .card:nth-child(1) {
+              grid-column: 1;
+              grid-row: 1;
+              aspect-ratio: 1/1;
             }
             
-            .card-responsive .card:nth-child(6) {
-              grid-column: 4;
+            .bento-grid .card:nth-child(2) {
+              grid-column: 2;
+              grid-row: 1;
+              aspect-ratio: 1/1;
+            }
+            
+            .bento-grid .card:nth-child(3) {
+              grid-column: 3 / 5;
+              grid-row: 1 / 3;
+              aspect-ratio: 1/1;
+              min-height: 400px;
+            }
+            
+            /* Second row: big (2x1), small */
+            .bento-grid .card:nth-child(4) {
+              grid-column: 1 / 3;
+              grid-row: 2;
+              aspect-ratio: 2/1;
+              min-height: 180px;
+            }
+            
+            .bento-grid .card:nth-child(5) {
+              grid-column: 1 / 3;
               grid-row: 3;
+              aspect-ratio: 2/1;
+              min-height: 180px;
+            }
+          }
+          
+          /* Large desktop styles */
+          @media (min-width: 1400px) {
+            .bento-grid {
+              gap: 1.25rem;
+            }
+            
+            .bento-grid .card {
+              min-height: 220px;
+            }
+            
+            .bento-grid .card:nth-child(3) {
+              min-height: 440px;
+            }
+          }
+          
+          /* Card base styles */
+          .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            padding: 1rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border-color);
+            font-weight: 300;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+          }
+          
+          .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+          }
+          
+          @media (max-width: 767px) {
+            .card {
+              padding: 0.875rem;
+              border-radius: 0.875rem;
+            }
+            
+            .card:hover {
+              transform: translateY(-1px);
             }
           }
           
@@ -689,6 +822,55 @@ const MagicBento: React.FC<BentoProps> = ({
             box-shadow: 0 4px 20px rgba(46, 24, 78, 0.2), 0 0 30px rgba(${glowColor}, 0.2);
           }
           
+          .card__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 0.75rem;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 0.5rem;
+          }
+          
+          .card__content {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 2;
+            flex-grow: 1;
+            justify-content: flex-end;
+          }
+          
+          .card__title {
+            font-weight: 500;
+            margin: 0 0 0.5rem 0;
+            font-size: clamp(1rem, 1.5vw, 1.25rem);
+            line-height: 1.3;
+          }
+          
+          .card__description {
+            font-size: clamp(0.875rem, 1.2vw, 1rem);
+            line-height: 1.5;
+            opacity: 0.9;
+            margin: 0;
+          }
+          
+          .card__label {
+            font-size: clamp(0.75rem, 1vw, 0.875rem);
+            opacity: 0.8;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+          }
+          
+          /* Special styling for the "For More" card */
+          .bento-grid .card:nth-child(5) .card__title {
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            font-weight: 600;
+            text-align: center;
+            margin: auto 0;
+          }
+          
           .text-clamp-1 {
             display: -webkit-box;
             -webkit-box-orient: vertical;
@@ -707,42 +889,110 @@ const MagicBento: React.FC<BentoProps> = ({
             text-overflow: ellipsis;
           }
           
-          @media (max-width: 599px) {
-            .card-responsive {
-              grid-template-columns: 1fr;
-              width: 90%;
-              margin: 0 auto;
-              padding: 0.5rem;
+          /* Image overlay styles */
+          .card-image-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background-size: cover;
+            background-position: center;
+            filter: blur(2px);
+            opacity: 20;
+            border-radius: inherit;
+          }
+          
+          .card-dark-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: rgba(35, 35, 38, 0.7);
+            border-radius: inherit;
+          }
+          
+          /* Responsive font scaling */
+          @media (max-width: 480px) {
+            .card__title {
+              font-size: 0.95rem;
             }
             
-            .card-responsive .card {
-              width: 100%;
-              min-height: 180px;
+            .card__description {
+              font-size: 0.8rem;
+            }
+            
+            .card__label {
+              font-size: 0.7rem;
+            }
+          }
+          
+          /* Touch-friendly hover states for mobile */
+          @media (hover: none) and (pointer: coarse) {
+            .card:hover {
+              transform: none;
+              box-shadow: none;
+            }
+            
+            .card:active {
+              transform: scale(0.98);
+              transition: transform 0.1s ease;
+            }
+          }
+          
+          /* Accessibility improvements */
+          .card:focus {
+            outline: 2px solid rgba(${glowColor}, 0.6);
+            outline-offset: 2px;
+          }
+          
+          .card:focus:not(:focus-visible) {
+            outline: none;
+          }
+          
+          /* High contrast mode support */
+          @media (prefers-contrast: high) {
+            .card {
+              border: 2px solid;
+            }
+            
+            .card__title {
+              font-weight: 600;
+            }
+          }
+          
+          /* Reduced motion support */
+          @media (prefers-reduced-motion: reduce) {
+            .card,
+            .card:hover {
+              transition: none;
+              transform: none;
+            }
+            
+            .particle {
+              animation: none !important;
             }
           }
         `}
       </style>
 
-      {enableSpotlight && (
+      {enableSpotlight && deviceType !== "mobile" && (
         <GlobalSpotlight
           gridRef={gridRef}
           disableAnimations={shouldDisableAnimations}
           enabled={enableSpotlight}
-          spotlightRadius={spotlightRadius}
+          spotlightRadius={
+            deviceType === "tablet" ? spotlightRadius * 0.8 : spotlightRadius
+          }
           glowColor={glowColor}
         />
       )}
 
       <BentoCardGrid gridRef={gridRef}>
-        <div className="card-responsive grid  gap-2">
+        <div className="bento-grid">
           {cardData.map((card, index) => {
-            const baseClassName = `card flex flex-col justify-between relative overflow-hidden aspect-[${
-              card.size?.aspectRatio || "4/3"
-            }] min-h-[${
-              card.size?.minHeight || "200px"
-            }] w-full max-w-full p-5 rounded-[20px] border border-solid font-light transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] ${
-              enableBorderGlow ? "card--border-glow" : ""
-            } cursor-pointer`;
+            const baseClassName = `card ${
+              enableBorderGlow && deviceType !== "mobile"
+                ? "card--border-glow"
+                : ""
+            }`;
 
             const cardStyle = {
               backgroundColor: card.image
@@ -754,19 +1004,60 @@ const MagicBento: React.FC<BentoProps> = ({
               "--glow-y": "50%",
               "--glow-intensity": "0",
               "--glow-radius": "200px",
-              minHeight: card.size?.minHeight,
-              aspectRatio: card.size?.aspectRatio,
-              width: card.size?.width,
-              backgroundImage: card.image ? `url(${card.image})` : undefined,
-              backgroundSize: card.image ? "cover" : undefined,
-              backgroundPosition: card.image ? "center" : undefined,
             } as React.CSSProperties;
 
             const handleCardClick = () => {
-              if (card.link) window.open(card.link, "_blank");
+              if (card.link) {
+                window.open(card.link, "_blank", "noopener,noreferrer");
+              }
             };
 
-            if (enableStars) {
+            const CardContent = (
+              <>
+                {/* Blurred background image */}
+                {card.image && (
+                  <div
+                    className="card-image-overlay"
+                    style={{
+                      backgroundImage: `url(${card.image})`,
+                    }}
+                  />
+                )}
+                {/* Overlay for better text contrast */}
+                {card.image && <div className="card-dark-overlay" />}
+
+                {/* Card content */}
+                <div className="card__header">
+                  {card.label && (
+                    <span className="card__label">{card.label}</span>
+                  )}
+                </div>
+
+                <div className="card__content">
+                  {card.title && (
+                    <h3
+                      className={`card__title ${
+                        index === cardData.length - 1 ? "text-center" : ""
+                      } ${textAutoHide ? "text-clamp-1" : ""}`}
+                    >
+                      {card.title}
+                    </h3>
+                  )}
+                  {card.description && (
+                    <p
+                      className={`card__description ${
+                        textAutoHide ? "text-clamp-2" : ""
+                      }`}
+                    >
+                      {card.description}
+                    </p>
+                  )}
+                </div>
+              </>
+            );
+
+            // Use ParticleCard for desktop with stars enabled, regular div otherwise
+            if (enableStars && deviceType === "desktop") {
               return (
                 <ParticleCard
                   key={index}
@@ -775,95 +1066,34 @@ const MagicBento: React.FC<BentoProps> = ({
                   disableAnimations={shouldDisableAnimations}
                   particleCount={particleCount}
                   glowColor={glowColor}
-                  enableTilt={enableTilt}
+                  enableTilt={enableTilt && deviceType === "desktop"}
                   clickEffect={clickEffect}
-                  enableMagnetism={enableMagnetism}
+                  enableMagnetism={enableMagnetism && deviceType === "desktop"}
                   onClick={handleCardClick}
                 >
-                  {/* Blurred background image */}
-                  {card.image && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        zIndex: 0,
-                        backgroundImage: `url(${card.image})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        filter: "blur(8px)",
-                        opacity: 0.7,
-                        borderRadius: "20px",
-                      }}
-                    />
-                  )}
-                  {/* Overlay for better text contrast */}
-                  {card.image && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        zIndex: 1,
-                        background: "rgba(35,35,38,0.7)",
-                        borderRadius: "20px",
-                      }}
-                    />
-                  )}
-                  {/* Card content */}
-                  <div
-                    className="card__header flex justify-between gap-3 relative text-white"
-                    style={{ zIndex: 2 }}
-                  >
-                    <span className="card__label text-base">{card.label}</span>
-                  </div>
-                  <div
-                    className="card__content flex flex-col relative text-white"
-                    style={{ zIndex: 2 }}
-                  >
-                    <h3
-                      className={`card__title font-normal ${
-                        index === cardData.length - 1 ? "text-3xl" : "text-base"
-                      } m-0 mb-1 ${textAutoHide ? "text-clamp-1" : ""}`}
-                    >
-                      {card.title}
-                    </h3>
-                    <p
-                      className={`card__description text-xs leading-5 opacity-90 ${
-                        textAutoHide ? "text-clamp-2" : ""
-                      }`}
-                    >
-                      {card.description}
-                    </p>
-                  </div>
+                  {CardContent}
                 </ParticleCard>
               );
             }
 
+            // Regular card for mobile and tablet, or when stars are disabled
             return (
               <div
                 key={index}
                 className={baseClassName}
                 style={cardStyle}
                 onClick={handleCardClick}
+                tabIndex={0}
+                role="button"
+                aria-label={`Open ${card.title || "project"} ${card.link ? "in new tab" : ""}`}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleCardClick();
+                  }
+                }}
               >
-                <div className="card__header flex justify-between gap-3 relative text-white">
-                  <span className="card__label text-base">{card.label}</span>
-                </div>
-                <div className="card__content flex flex-col relative text-white">
-                  <h3
-                    className={`card__title font-normal text-base m-0 mb-1 ${
-                      textAutoHide ? "text-clamp-1" : ""
-                    }`}
-                  >
-                    {card.title}
-                  </h3>
-                  <p
-                    className={`card__description text-xs leading-5 opacity-90 ${
-                      textAutoHide ? "text-clamp-2" : ""
-                    }`}
-                  >
-                    {card.description}
-                  </p>
-                </div>
+                {CardContent}
               </div>
             );
           })}

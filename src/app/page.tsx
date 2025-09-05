@@ -17,10 +17,13 @@ export default function Home() {
           gradientThird="radial-gradient(50% 50% at 50% 50%, hsla(0, 0%, 85%, .04) 0, hsla(0, 0%, 65%, .02) 80%, transparent 100%)"
         />
         <MyNav />
-        <div className="mb-100">
+        <div className="mb-16 md:mb-24 lg:mb-32">
           <HeroSection />
         </div>
-        <div id="projects" className="flex justify-center items-center pr-48 mt-20 mb-20">
+        <div
+          id="projects"
+          className="w-full px-4 md:px-6 lg:px-8 mt-12 mb-12 md:mt-20 md:mb-20"
+        >
           <MagicBento
             textAutoHide={true}
             enableStars={true}
