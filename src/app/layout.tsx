@@ -14,8 +14,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "Created by Parth-12pm",
+  title: "Parth Mahadik | Software Engineer & Full Stack Developer",
+  description:
+    "Portfolio of Parth Mahadik, a Software Engineer specializing in Next.js, React, Android, and AI/ML. View projects like StallSpot, Travel Mate, and more.",
+  keywords: [
+    "Parth Mahadik",
+    "Software Engineer",
+    "Full Stack Developer",
+    "Next.js",
+    "React",
+    "Android",
+    "AI",
+    "Machine Learning",
+    "Portfolio",
+  ],
+  openGraph: {
+    title: "Parth Mahadik | Software Engineer",
+    description: "Building the future with code and creativity.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

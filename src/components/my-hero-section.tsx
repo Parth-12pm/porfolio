@@ -53,11 +53,11 @@ export default function HeroSection() {
                     colorRevealDelay={1200}
                   /> */}
                   <Link
-                    href="#link"
+                    href="#projects"
                     className="hover:bg-background dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-zinc-950/5 transition-colors duration-300 dark:border-t-white/5 dark:shadow-zinc-950"
                   >
                     <span className="text-foreground text-sm">
-                      Introducing Support
+                      View My Work
                     </span>
                     <span className="dark:border-background block h-4 w-0.5 border-l bg-white dark:bg-zinc-700"></span>
 
@@ -80,7 +80,7 @@ export default function HeroSection() {
                   as="h1"
                   className="mt-6 md:mt-8 lg:mt-16 text-balance text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.25rem]"
                 >
-                  Modern Solutions for Customer Engagement
+                  Parth Mahadik
                 </TextEffect>
                 <TextEffect
                   per="line"
@@ -90,8 +90,8 @@ export default function HeroSection() {
                   as="p"
                   className="mx-auto mt-8 max-w-2xl text-balance text-lg"
                 >
-                  Highly customizable components for building modern websites
-                  and applications that look and feel the way you mean it.
+                  Software Engineer specializing in Next.js, Android, and AI-driven solutions.
+                  Crafting high-performance applications that solve real-world problems.
                 </TextEffect>
               </div>
             </div>

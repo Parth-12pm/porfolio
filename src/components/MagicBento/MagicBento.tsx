@@ -31,6 +31,7 @@ export interface BentoProps {
   glowColor?: string;
   clickEffect?: boolean;
   enableMagnetism?: boolean;
+  onProjectClick?: (project: BentoCardProps) => void;
 }
 
 const DEFAULT_PARTICLE_COUNT = 12;
@@ -39,7 +40,7 @@ const DEFAULT_GLOW_COLOR = "171, 171, 171";
 const MOBILE_BREAKPOINT = 768;
 const TABLET_BREAKPOINT = 1024;
 
-const cardData: BentoCardProps[] = [
+export const cardData: BentoCardProps[] = [
   // Row 1: small, small, big
   {
     color: "#232326",
@@ -599,6 +600,7 @@ const MagicBento: React.FC<BentoProps> = ({
   glowColor = DEFAULT_GLOW_COLOR,
   clickEffect = true,
   enableMagnetism = true,
+  onProjectClick,
 }) => {
   const gridRef = useRef<HTMLDivElement>(null);
   const deviceType = useDeviceDetection();
@@ -1007,7 +1009,9 @@ const MagicBento: React.FC<BentoProps> = ({
             } as React.CSSProperties;
 
             const handleCardClick = () => {
-              if (card.link) {
+              if (onProjectClick) {
+                onProjectClick(card);
+              } else if (card.link) {
                 window.open(card.link, "_blank", "noopener,noreferrer");
               }
             };
