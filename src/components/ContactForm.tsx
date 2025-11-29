@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { Send, User, Mail, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { EmailDisplay } from "./EmailDisplay";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -69,7 +70,9 @@ export default function ContactForm() {
               <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
                 <Mail className="w-5 h-5 text-primary" /> Email Me
               </h3>
-              <p className="text-muted-foreground">hello@example.com</p>
+              <p className="text-muted-foreground">
+                <EmailDisplay user="parthsmahadik12027" domain="gmail.com" />
+              </p>
             </div>
             <div className="p-6 bg-primary/5 rounded-2xl border border-primary/10">
               <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">

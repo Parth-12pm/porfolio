@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/resizable-navbar";
 import UseAnimations from "react-useanimations";
 import loading2 from "react-useanimations/lib/loading2";
+import { ThemeToggle } from "./ThemeToggle";
 
 export default function MyNav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -41,6 +42,7 @@ export default function MyNav() {
         <NavbarLogo />
         <NavItems items={navItems} />
         <UseAnimations animation={loading2} size={28} strokeColor="white" />
+        <ThemeToggle />
       </NavBody>
 
       {/* Mobile Navigation */}
@@ -67,6 +69,9 @@ export default function MyNav() {
               <span className="block">{item.name}</span>
             </a>
           ))}
+          <div className="mt-4">
+            <ThemeToggle />
+          </div>
         </MobileNavMenu>
       </MobileNav>
     </Navbar>

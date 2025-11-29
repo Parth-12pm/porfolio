@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Mail } from "lucide-react";
+import { EmailDisplay } from "./EmailDisplay";
 
 const links = [
   {
@@ -119,15 +120,12 @@ export default function FooterSection() {
               ></path>
             </svg>
           </Link>
-          <Link
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Mail"
+          <EmailDisplay
+            user="parthsmahadik12027"
+            domain="gmail.com"
             className="text-muted-foreground hover:text-primary block"
-          >
-            <Mail />
-          </Link>
+            label={<Mail />}
+          />
           <Link
             href="#"
             target="_blank"
