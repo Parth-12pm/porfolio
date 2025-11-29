@@ -241,7 +241,7 @@ export const NavbarLogo = () => {
       className="relative z-20 mr-2 md:mr-4 flex items-center space-x-1 md:space-x-2 px-1 md:px-2 py-1 text-sm font-normal text-black"
     >
       <PixelImage
-        src="/me.jpg"
+        src="/Me.png"
         className="w-8 h-8 rounded-full"
         maxAnimationDelay={1000}
         grayscaleAnimation={true}
