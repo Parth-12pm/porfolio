@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
-  output: "export",
-  trailingSlash: true,
+  // Removed output: "export" to enable API routes and server features on Vercel
+  // trailingSlash: true, // Only needed for static export
   images: {
     unoptimized: true,
     remotePatterns: [
