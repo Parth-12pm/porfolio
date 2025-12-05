@@ -82,7 +82,7 @@ export const cardData: BentoCardProps[] = [
   {
     color: "#232326",
     title: "For More",
-    link: "https://github.com/Parth-12pm/",
+    link: "https://github.com/Parth-12pm",
     image: "/solid_color.jpg",
     size: { minHeight: "180px", aspectRatio: "6/4", width: "360px" },
   },
